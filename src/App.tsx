@@ -1,7 +1,15 @@
+import {Route,Routes} from 'react-router-dom'
+import Login from './page/Login'
+import SingUp from './page/SingUp'
+import Home from './page/Home'
+
 export default function App() {
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+    <Routes>
+      <Route path="/" element={<Login/>}/>
+      <Route path="/singUp" element={<SingUp/>}/>
+      <Route path="/home" element={<Home/>}/>
+    
+    </Routes>
   )
 }
