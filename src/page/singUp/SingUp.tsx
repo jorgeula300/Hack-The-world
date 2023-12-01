@@ -1,5 +1,9 @@
+import Slider from "../../components/Slider";
+
 const SingUp = () => {
-    return (  <h1>Hola desde registro</h1>);
+    return (  <div>
+        <Slider/>
+    </div>);
 }
- 
+
 export default SingUp;
