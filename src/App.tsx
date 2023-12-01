@@ -1,7 +1,7 @@
 import {Route,Routes} from 'react-router-dom'
-import Login from './page/Login'
-import SingUp from './page/SingUp'
-import Home from './page/Home'
+import Login from './page/login/Login'
+import SingUp from './page/singUp/SingUp'
+import Home from './page/home/Home'
 
 export default function App() {
   return (
