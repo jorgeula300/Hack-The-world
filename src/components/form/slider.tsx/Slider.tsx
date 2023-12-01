@@ -1,6 +1,7 @@
+import './Slider.css'
 const Slider = () => {
-    return ( <div className=" w-[50%] h-screen  bg-black">
-        <h1>Slaider</h1>
+    return ( <div className=" w-[50%] h-full " id="slider">
+        
     </div> );
 }
 
