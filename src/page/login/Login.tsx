@@ -1,5 +1,16 @@
+import { Button } from "../../components/form/button";
+
 const Login = () => {
-    return (<h1>hola desde login </h1> );
+
+    const handleLogin = () => {
+        console.log('login')
+    }
+
+    return (<div>
+        <h1>hola desde login </h1>
+        <Button text=" " onclick={handleLogin}/>
+    </div>
+    );
 }
 
 export default Login;
