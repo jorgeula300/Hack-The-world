@@ -5,7 +5,6 @@ import { IMAGE_PATH } from "../../../consts";
 
 interface BannersProsp {
   movie?: MoviesInterface;
-  // tv?: TvInterface;
 }
 const Banners = ({ movie }: BannersProsp) => {
   return (
