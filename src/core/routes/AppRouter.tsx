@@ -9,7 +9,7 @@ import {
 import { ToastContainer } from 'react-toastify';
 
 import { useAuth } from '../hooks/useAuth';
-import { Home, Login, NotFound } from '../../pages';
+import { Home, Login, NotFound, Register } from '../../pages';
 import { Loading } from '../../components';
 import { useColorTheme } from '../hooks/useColorTheme';
 import 'react-toastify/dist/ReactToastify.css';
@@ -40,6 +40,19 @@ const AppRouter = () => {
           <Route
             index
             element={!isAuth ? <Login /> : <Navigate replace to="/" />}
+          />
+          <Route path=":token">
+            <Route
+              index
+              element={!isAuth ? <Login /> : <Navigate replace to="/" />}
+            />
+          </Route>
+        </Route>
+
+        <Route path="registro">
+          <Route
+            index
+            element={!isAuth ? <Register /> : <Navigate replace to="/" />}
           />
           <Route path=":token">
             <Route
