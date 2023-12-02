@@ -27,10 +27,10 @@ export const useAuth = () => {
     try {
       // return JSON.parse(window.localStorage.getItem('user'));
       // return JSON.parse(window.localStorage.user);
-      console.log(
-        JSON.parse(JSON.parse(localStorage.getItem('persist:root')!).user)
-          .currentUser
-      );
+      // console.log(
+      //   JSON.parse(JSON.parse(localStorage.getItem('persist:root')!).user)
+      //     .currentUser
+      // );
       return JSON.parse(JSON.parse(localStorage.getItem('persist:root')!).user)
         .currentUser;
     } catch (error) {

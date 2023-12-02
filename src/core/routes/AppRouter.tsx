@@ -1,21 +1,20 @@
 import React, { Suspense } from 'react';
-import {
-  BrowserRouter as Router,
-  Link,
-  Navigate,
-  Route,
-  Routes,
-} from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
-import { useAuth } from '../hooks/useAuth';
-import { Home, Login, NotFound, Register } from '../../pages';
-import { Loading } from '../../components';
-import { useColorTheme } from '../hooks/useColorTheme';
 import 'react-toastify/dist/ReactToastify.css';
+import { Loading } from '../../components';
+import ContentSearch from '../../components/layout/contentSearch';
+import Detail from '../../components/layout/detail';
+import FilterMovie from '../../components/layout/firterMovies';
+import Header from '../../components/layout/header';
+import { Home, Login, NotFound, Register } from '../../pages';
+import MovieOrSerie from '../../pages/movieOrSerie';
+import { useAuth } from '../hooks/useAuth';
+import { useColorTheme } from '../hooks/useColorTheme';
 
 const AppRouter = () => {
-  const { CheckAuth, loggedUser } = useAuth();
+  const { loggedUser } = useAuth();
   let isAuth = loggedUser;
   const { state } = useColorTheme();
 
@@ -29,8 +28,9 @@ const AppRouter = () => {
       />
 
       <Routes>
+        <Route path="/" element={<Navigate replace to="/inicio" />} />
         <Route
-          path="/"
+          path="/inicio"
           element={
             isAuth ? <Home /> : <Navigate replace to="/iniciar-sesion" />
           }
@@ -39,12 +39,12 @@ const AppRouter = () => {
         <Route path="iniciar-sesion">
           <Route
             index
-            element={!isAuth ? <Login /> : <Navigate replace to="/" />}
+            element={!isAuth ? <Login /> : <Navigate replace to="/inicio" />}
           />
           <Route path=":token">
             <Route
               index
-              element={!isAuth ? <Login /> : <Navigate replace to="/" />}
+              element={!isAuth ? <Login /> : <Navigate replace to="/inicio" />}
             />
           </Route>
         </Route>
@@ -61,6 +61,42 @@ const AppRouter = () => {
             />
           </Route>
         </Route>
+
+        {isAuth && (
+          <Route
+            path="/peliculas"
+            element={<MovieOrSerie layout="peliculas" />}
+          />
+        )}
+        {isAuth && (
+          <Route path="/series" element={<MovieOrSerie layout="series" />} />
+        )}
+        {isAuth && (
+          <Route path="/accion" element={<FilterMovie layout="accion" />} />
+        )}
+        {isAuth && (
+          <Route path="/comedia" element={<FilterMovie layout="comedia" />} />
+        )}
+        {isAuth && (
+          <Route path="/drama" element={<FilterMovie layout="drama" />} />
+        )}
+        {isAuth && (
+          <Route path="/fantasia" element={<FilterMovie layout="fantasia" />} />
+        )}
+        {isAuth && (
+          <Route path="/romance" element={<FilterMovie layout="romance" />} />
+        )}
+        {isAuth && (
+          <Route path="/terror" element={<FilterMovie layout="terror" />} />
+        )}
+        {isAuth && (
+          <Route
+            path="/documentales"
+            element={<FilterMovie layout="documentales" />}
+          />
+        )}
+        {isAuth && <Route path="/pelicula/:id" element={<Detail />} />}
+        {isAuth && <Route path={'/search/movie'} element={<ContentSearch />} />}
 
         {/* <Route path="*" component={NotFound} /> */}
         {/* // Use it in this way, and it should work: */}
