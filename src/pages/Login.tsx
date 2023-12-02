@@ -1,12 +1,16 @@
+//@ts-nocheck
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { emailPatternValidation, getControl } from '../core/config/helpers';
 import { useAuth } from '../core/hooks/useAuth';
+import { ToastContainer, toast } from 'react-toastify';
 import './login.css';
 
 const Login = () => {
   const { loading, login } = useAuth();
-  function handleSubmit(e: React.FormEventHandler<HTMLFormElement>) {
+
+  // function handleSubmit(e: React.FormEventHandler<HTMLFormElement>) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     const { elements } = e.currentTarget;
@@ -57,7 +61,11 @@ const Login = () => {
             src="/img/loginImg/Vector1up.svg"
             alt="img"
           />
-          <form onSubmit={handleSubmit} className="loginPageWrapperCont">
+          <form
+            onSubmit={handleSubmit}
+            className="loginPageWrapperCont"
+            aria-label="Auth form"
+          >
             {/*  */}
             <h1 className="loginPageTitle">Iniciar sesión</h1>
             <div className="loginPageFormField">

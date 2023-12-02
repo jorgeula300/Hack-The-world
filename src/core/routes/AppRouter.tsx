@@ -1,21 +1,19 @@
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 import {
-  BrowserRouter as Router,
-  Link,
   Navigate,
   Route,
-  Routes,
+  Routes
 } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
-import { useAuth } from '../hooks/useAuth';
-import { Home, Login, NotFound, Register } from '../../pages';
-import { Loading } from '../../components';
-import { useColorTheme } from '../hooks/useColorTheme';
 import 'react-toastify/dist/ReactToastify.css';
+import { Loading } from '../../components';
+import { Home, Login, NotFound, Register } from '../../pages';
+import { useAuth } from '../hooks/useAuth';
+import { useColorTheme } from '../hooks/useColorTheme';
 
 const AppRouter = () => {
-  const { CheckAuth, loggedUser } = useAuth();
+  const { loggedUser } = useAuth();
   let isAuth = loggedUser;
   const { state } = useColorTheme();
 

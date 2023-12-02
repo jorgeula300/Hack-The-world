@@ -1,7 +1,10 @@
+//@ts-nocheck
+import React from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { emailPatternValidation, getControl } from '../core/config/helpers';
 import { useAuth } from '../core/hooks/useAuth';
+import { ToastContainer, toast } from 'react-toastify';
 import './login.css';
 import './signup.css';
 

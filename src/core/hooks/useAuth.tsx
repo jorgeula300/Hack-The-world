@@ -3,20 +3,17 @@ import { useCallback, useContext, useState } from 'react';
 
 import { AuthContext } from '../context/AuthContext';
 // import { loginService } from '../services/users.service';
-import { useRouter } from 'next/navigation';
-import { Navigate } from 'react-router-dom';
-import { LoginAuthProps } from '../../types/types';
-import { capitalizeFirstLetter, toastNotification } from '../config/helpers';
-import { loginService } from '../services/users.service';
-import { useColorTheme } from './useColorTheme';
-import { ToastContainer, toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
+import { Navigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { LoginAuthProps } from '../../types/types';
+import { capitalizeFirstLetter } from '../config/helpers';
 import { loginFailure, loginStart, loginSuccess } from '../redux/userSlice';
+import { loginService } from '../services/users.service';
 
 export const useAuth = () => {
-  const { isAuth, setIsAuth, activateAuth, removeAuth } =
+  const { isAuth, removeAuth } =
     useContext(AuthContext);
-  const { state: stateFromUI } = useColorTheme();
   const dispatch = useDispatch();
 
   const [state, setState] = useState({ loading: false, error: false });
@@ -27,10 +24,10 @@ export const useAuth = () => {
     try {
       // return JSON.parse(window.localStorage.getItem('user'));
       // return JSON.parse(window.localStorage.user);
-      console.log(
-        JSON.parse(JSON.parse(localStorage.getItem('persist:root')!).user)
-          .currentUser
-      );
+      // console.log(
+      //   JSON.parse(JSON.parse(localStorage.getItem('persist:root')!).user)
+      //     .currentUser
+      // );
       return JSON.parse(JSON.parse(localStorage.getItem('persist:root')!).user)
         .currentUser;
     } catch (error) {
