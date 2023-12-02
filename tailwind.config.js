@@ -7,20 +7,11 @@ export default {
   theme: {
     extend: {
 
-    },
-    container: {
-      center: true,
-      padding: {
-        DEFAULT: '1rem',
-        sm: '2rem',
-        lg: '4rem',
-        xl: '5rem',
-        '2xl': '6rem',
-      },
+      
     },
     fontFamily: {
-      'poppins': ['Poppins', 'sans-serif'],
+      'sans': ['Poppins', 'sans-serif'],
     },
   },
-  plugins: [],
+  plugins:[require('@tailwindcss/forms')],
 }
