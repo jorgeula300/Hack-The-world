@@ -1,6 +1,6 @@
-import { Button } from '../../components/form/button/Button';
-import ChetP from '../../components/form/chet/ChetP';
-import Slider from '../../components/form/slider.tsx/Slider';
+import { Button } from '../components/form/button/Button';
+import ChetP from '../components/form/chet/ChetP';
+import Slider from '../components/form/slider.tsx/Slider';
 
 import { useState } from 'react';
 

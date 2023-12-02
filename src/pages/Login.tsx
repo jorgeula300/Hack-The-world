@@ -1,13 +1,47 @@
 import { useState } from 'react';
-import { Button } from '../../components/form/button/Button';
-import Slider from '../../components/form/slider.tsx/Slider';
-import './login.css';
 import { Link } from 'react-router-dom';
-import { AiOutlineEyeInvisible } from 'react-icons/ai';
+import { emailPatternValidation, getControl } from '../core/config/helpers';
+import { useAuth } from '../core/hooks/useAuth';
+import './login.css';
+
 const Login = () => {
-  const handleLogin = () => {
-    console.log('login');
-  };
+  const { loading, login } = useAuth();
+  function handleSubmit(e: React.FormEventHandler<HTMLFormElement>) {
+    e.preventDefault();
+
+    const { elements } = e.currentTarget;
+    const email = getControl(elements.namedItem('email'))!;
+    const password = getControl(elements.namedItem('password'))!;
+
+    if (email.value != '' && password.value != '') {
+      if (emailPatternValidation(email.value)) {
+        !loading && login({ email: email.value, password: password.value });
+
+        // email.value = '';
+        // password.value = '';
+      } else {
+        // toastNotification({
+        //   icon: 'error',
+        //   title: 'Correo erroneo',
+        //   text: 'Ingrese un correo válido.',
+        //   timer: 3000,
+        //   stateFromUI: state,
+        // });
+
+        toast.error('Ingrese un correo válido');
+      }
+    } else {
+      // toastNotification({
+      //   icon: 'error',
+      //   title: 'Error de credenciales',
+      //   text: 'Falta información requerida.',
+      //   timer: 3000,
+      //   stateFromUI: state,
+      // });
+
+      toast.error('Falta información requerida');
+    }
+  }
 
   const [toggle, setToggle] = useState(false);
 
@@ -23,7 +57,7 @@ const Login = () => {
             src="/img/loginImg/Vector1up.svg"
             alt="img"
           />
-          <div className="loginPageWrapperCont">
+          <form onSubmit={handleSubmit} className="loginPageWrapperCont">
             {/*  */}
             <h1 className="loginPageTitle">Iniciar sesión</h1>
             <div className="loginPageFormField">
@@ -35,7 +69,7 @@ const Login = () => {
               />
             </div>
             <div className="loginPageFormField">
-              <label htmlFor="password">Correo electrónico</label>
+              <label htmlFor="password">Contraseña</label>
               <input
                 type="password"
                 name="password"
@@ -47,11 +81,11 @@ const Login = () => {
                 className="loginPageFormFieldText"
                 title="Recordar  el próximo ingreso a la plataforma."
               >
-                <div>
+                <div className="remember">
                   <input type="checkbox" name="remember" />
-                  <AiOutlineEyeInvisible className="loginPageFormIcon" />
+                  {/* <AiOutlineEyeInvisible className="loginPageFormIcon" /> */}
+                  <label htmlFor="remember">Recordar credenciales</label>
                 </div>
-                <label htmlFor="password">Correo electrónico</label>
               </div>
 
               <Link to="/">¿Olvidaste tu contraseña?</Link>
@@ -60,10 +94,11 @@ const Login = () => {
             <button>Iniciar sesión</button>
 
             <div className="loginPageSigup">
-              ¿Aún no tienes una cuenta?, Regístrate aquí.
+              ¿Aún no tienes una cuenta?,{' '}
+              <Link to="/registro">Regístrate.</Link>
             </div>
             {/*  */}
-          </div>
+          </form>
           <img
             className="Vector2down"
             src="/img/loginImg/Vector2down.svg"

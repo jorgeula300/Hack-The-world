@@ -1,15 +1,14 @@
-import { Route, Routes } from 'react-router-dom';
-import Login from './page/login/Login';
-import SingUp from './page/singUp/SingUp';
-import Home from './page/home/Home';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistor, store } from './core/redux/store/index.ts';
+import AppRouter from './core/routes/AppRouter';
 
 export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Login />} />
-      <Route path="/singUp" element={<SingUp />} />
-      <Route path="/home" element={<Home />} />
-      <Route path="/login" element={<Login />} />
-    </Routes>
+    <Provider store={store}>
+      <PersistGate loading="null" persistor={persistor}>
+        <AppRouter />
+      </PersistGate>
+    </Provider>
   );
 }
