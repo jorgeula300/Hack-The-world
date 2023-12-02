@@ -57,7 +57,7 @@ const AppRouter = () => {
           <Route path=":token">
             <Route
               index
-              element={!isAuth ? <Login /> : <Navigate replace to="/" />}
+              element={!isAuth ? <Register /> : <Navigate replace to="/" />}
             />
           </Route>
         </Route>
