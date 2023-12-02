@@ -40,3 +40,11 @@
 .read-the-docs {
   color: #888;
 }
+
+/* Fonts */
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('/public/fonts/Poppins/Poppins-Bold.ttf') format('truetype')
+    url('/public/fonts/Poppins/Poppins-ExtraBold.ttf') format('truetype');
+}

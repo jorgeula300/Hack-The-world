@@ -1,0 +1,142 @@
+.loginPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.loginPageWrapper {
+  display: flex;
+  max-height: 1024px;
+}
+
+.loginPage1,
+.loginPag2 {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginPag2 {
+  position: relative;
+  background-color: #262a2e;
+}
+
+.Vector1up {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.Vector2down {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.loginPageWrapper {
+  background-color: aliceblue;
+  width: 650px;
+}
+.loginPageWrapperInner {
+  flex: 1;
+}
+
+@font-face {
+  font-family: Poppins-Bold;
+  /* src: url(/assets/fonts/Poppins-Bold.ttf); */
+  src: url(/img/fonts/Poppins-Bold.ttf);
+}
+
+@font-face {
+  font-family: Poppins-Regular;
+  src: url(/assets/fonts/Poppins-Regular.ttf);
+}
+
+.loginPageWrapperCont {
+  z-index: 1;
+}
+
+.loginPageTitle {
+  z-index: 2;
+  font-family: Poppins;
+  font-weight: 800;
+  font-size: 30px;
+  line-height: 81px;
+  letter-spacing: 3%;
+  text-align: center;
+  color: #fff;
+}
+
+@media only screen and (max-width: 900px) {
+  .loginPageWrapper {
+    height: 100%;
+  }
+}
+
+.loginPageWrapperCont {
+  position: relative; /* Agrega posición relativa */
+  z-index: 1; /* Asegúrate de que el z-index sea mayor que el de las imágenes */
+}
+
+.Vector1up,
+.Vector2down {
+  position: absolute;
+}
+
+.loginPageTitle {
+  font-family: 'Poppins'; /* Utiliza el nombre correcto de la fuente */
+  font-weight: 800;
+  font-size: 30px;
+  line-height: 1.35; /* Ajusta el line-height según sea necesario */
+  letter-spacing: 3%;
+  text-align: center;
+  color: #fff;
+  position: relative; /* Agrega posición relativa */
+  z-index: 2; /* Asegúrate de que el z-index sea mayor que el de las imágenes */
+  padding-bottom: 20px;
+  letter-spacing: 2px;
+}
+
+/* Ajusta el estilo de las imágenes */
+.Vector1up,
+.Vector2down {
+  /* width: 100%; */
+  /* height: 100%; */
+  object-fit: cover;
+}
+
+.loginPageFormField {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding-bottom: 5px;
+}
+
+.loginPageFormField input {
+  background-color: unset;
+  border: 2px solid #9747ff;
+  padding: 10px 15px;
+  border-radius: 20px;
+  font-size: 14px;
+  color: #fff;
+  font-family: Poppins;
+}
+
+.loginPageFormIcon {
+  color: #fff;
+  font-size: 14px;
+}
+
+.loginPageFormField label {
+  z-index: 2;
+  font-family: Poppins;
+  font-weight: 100;
+  font-size: 20px;
+  letter-spacing: 6%;
+  color: #fff;
+  line-height: 30px;
+  padding-left: 5px;
+}
