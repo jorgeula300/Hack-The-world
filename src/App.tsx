@@ -6,6 +6,7 @@ import Header from "./components/layout/header";
 import Detail from "./components/layout/detail";
 import MovieOrSerie from "./page/movieOrSerie";
 import FilterMovie from "./components/layout/firterMovies";
+import ContentSearch from "./components/layout/contentSearch";
 
 export default function App() {
   return (
@@ -19,10 +20,7 @@ export default function App() {
           path="/peliculas"
           element={<MovieOrSerie layout="peliculas" />}
         />
-        <Route
-          path="/series"
-          element={<MovieOrSerie layout="series" />}
-        />
+        <Route path="/series" element={<MovieOrSerie layout="series" />} />
         <Route path="/accion" element={<FilterMovie layout="accion" />} />
         <Route path="/comedia" element={<FilterMovie layout="comedia" />} />
         <Route path="/drama" element={<FilterMovie layout="drama" />} />
@@ -34,6 +32,7 @@ export default function App() {
           element={<FilterMovie layout="documentales" />}
         />
         <Route path="/pelicula/:id" element={<Detail />} />
+        <Route path={"/search/movie"} element={<ContentSearch />} />
       </Routes>
     </>
   );

@@ -6,7 +6,7 @@ import { FaUserCircle } from "react-icons/fa";
 import FilterMenu from "../../common/filterMenu";
 import { useEffect, useState } from "react";
 import { API_KEY, API_URL } from "../../../consts";
-import Spinner from "../Spinner";
+import Spinner from "../spinner";
 
 interface FilterMovieProps {
   layout:

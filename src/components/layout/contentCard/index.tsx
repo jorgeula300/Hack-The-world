@@ -9,7 +9,7 @@ const ContentCard = ({ movies, title }: ContentCardProps) => {
   return (
     <>
       <h1 className="text-xl font-bold my-4">{title}</h1>
-      <div className="grid grid-auto-rows grid-cols-4 gap-4">
+      <div className="grid  grid-auto-rows grid-cols-2  md:grid-cols-4 gap-4">
         {movies?.map((movie) => {
           return (
             <Link to={`/pelicula/${movie.id}`} key={movie.id}>

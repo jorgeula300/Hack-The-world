@@ -1,33 +1,65 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { API_KEY, IMAGE_PATH } from "../../../consts";
 import { FaPlay } from "react-icons/fa";
 import Search from "../../form/search";
 import { BsBell } from "react-icons/bs";
 import { FaUserCircle } from "react-icons/fa";
+import { MdErrorOutline } from "react-icons/md";
+import YouTube from "react-youtube";
+import Modal from "../modal";
+import styles from "./styles.module.css";
 
 const Detail = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState<any>();
+  const [open, setOpen] = useState(false);
+  const [trailer, setTrailer] = useState({});
+  const [pause, setPause] = useState(false);
+  const refDiv = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-    const getMovie = async () => {
-      const response = await fetch(
-        `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&language=en-US`
-      );
-      const data = await response.json();
-      setMovie(data);
+    const getMovieData = async () => {
+      fetch(
+        `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&append_to_response=videos`
+      )
+        .then((rest) => rest.json())
+        .then((data) => {
+          // setLoading(false);
+          setMovie(data);
+          if (data.videos && data.videos.results) {
+            const trailerData = data.videos.results.find((video) =>
+              video.name === "Official Trailer"
+                ? video.name === "Official Trailer"
+                : video
+            );
+            setTrailer(trailerData);
+          }
+        });
+    };
+    const handlesClick = (event: MouseEvent) => {
+      if (!refDiv.current?.contains(event.target as Node)) {
+        setOpen(false);
+        console.log("click");
+      }
     };
 
-    getMovie();
+    open && window.addEventListener("click", handlesClick);
+    getMovieData();
+
+    window.scrollTo(0, 0);
+
+    if (trailer && !open) {
+      setPause(true);
+    } else {
+      setPause(false);
+    }
 
     return () => {
-      setMovie({});
+      window.removeEventListener("click", handlesClick);
       window.scrollTo(0, 0);
     };
-  }, [id]);
-
+  }, [movie, open, pause]);
   console.log(movie);
 
   return (
@@ -51,14 +83,20 @@ const Detail = () => {
         }}
         className="flex justify-center items-center w-full h-[370px] bg-cover bg-center bg-no-repeat rounded-xl bg-slate-400 mt-20"
       >
-        <button className="flex justify-center items-center p-6 text-4xl bg-[#e8e8e845] text-white rounded-[50%] hover:bg-white hover:text-black">
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            setOpen(true);
+          }}
+          className="flex justify-center items-center p-6 text-4xl bg-[#e8e8e845] text-white rounded-[50%] hover:bg-white hover:text-black"
+        >
           <FaPlay />
         </button>
       </section>
       <section className="flex flex-row justify-between ">
         <h1 className="text-2xl font-bold">{movie?.title}</h1>
       </section>
-      <section >
+      <section>
         <p className="text-base max-w-[750px] ">{movie?.overview}</p>
       </section>
       <section className="flex flex-row gap-4">
@@ -70,7 +108,9 @@ const Detail = () => {
         <p className="text-base">Vote Count: {movie?.vote_count}</p>
       </section>
       <section className="flex flex-row gap-4 border-b pb-4">
-        <p className="text-base">Original Language: {movie?.original_language}</p>
+        <p className="text-base">
+          Original Language: {movie?.original_language}
+        </p>
         <p className="text-base">Original Title: {movie?.original_title}</p>
       </section>
       <section className="flex flex-row gap-4 border-b pb-4">
@@ -85,7 +125,55 @@ const Detail = () => {
         <p className="text-base">Homepage: {movie?.homepage}</p>
       </section>
 
-
+      <Modal open={open}>
+        {trailer && !pause ? (
+          <div
+            ref={refDiv}
+            className={styles.conten_trailer}
+            style={{ position: "relative" }}
+          >
+            <button
+              className={styles.modal_cerrar}
+              onClick={(e) => {
+                e.stopPropagation();
+                setOpen(false);
+              }}
+            >
+              X
+            </button>
+            <YouTube
+              videoId={trailer.key}
+              className={styles.reproductor}
+              opts={{
+                height: "100%",
+                width: "100%",
+                onPause: pause ? "noop" : "defaults",
+                playerVars: {
+                  autoplay: 1,
+                  controls: 0,
+                  cc_load_policy: 0,
+                },
+              }}
+            />
+          </div>
+        ) : (
+          <div className={styles.message_trailer}>
+            <button
+              className={styles.modal_cerrar}
+              onClick={(e) => e.stopPropagation()}
+            >
+              X
+            </button>
+            <p className={styles.icon}>
+              <MdErrorOutline />
+            </p>
+            <div>
+              <span>El video no está disponible</span>
+              <p>Este video no está disponible</p>
+            </div>
+          </div>
+        )}
+      </Modal>
     </div>
   );
 };
