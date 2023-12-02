@@ -1,4 +1,4 @@
-import { Button } from "../../components/form/button";
+import { Button } from "../../components/form/button/Button";
 
 const Login = () => {
 
