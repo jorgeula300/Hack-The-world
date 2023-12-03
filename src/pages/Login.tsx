@@ -1,12 +1,14 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { emailPatternValidation, getControl } from '../core/config/helpers';
 import { useAuth } from '../core/hooks/useAuth';
 import './login.css';
 
 const Login = () => {
   const { loading, login } = useAuth();
-  function handleSubmit(e: React.FormEventHandler<HTMLFormElement>) {
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
     e.preventDefault();
 
     const { elements } = e.currentTarget;
@@ -41,9 +43,7 @@ const Login = () => {
 
       toast.error('Falta información requerida');
     }
-  }
-
-  const [toggle, setToggle] = useState(false);
+  };
 
   return (
     <div className="loginPage h-[100vh] w-[100%]">

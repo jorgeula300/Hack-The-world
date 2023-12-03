@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
@@ -7,7 +7,6 @@ import { Loading } from '../../components';
 import ContentSearch from '../../components/layout/contentSearch';
 import Detail from '../../components/layout/detail';
 import FilterMovie from '../../components/layout/firterMovies';
-import Header from '../../components/layout/header';
 import { Home, Login, NotFound, Register } from '../../pages';
 import MovieOrSerie from '../../pages/movieOrSerie';
 import { useAuth } from '../hooks/useAuth';
@@ -15,7 +14,7 @@ import { useColorTheme } from '../hooks/useColorTheme';
 
 const AppRouter = () => {
   const { loggedUser } = useAuth();
-  let isAuth = loggedUser;
+  let isAuth = true;
   const { state } = useColorTheme();
 
   return (

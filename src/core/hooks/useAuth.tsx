@@ -3,15 +3,14 @@ import { useCallback, useContext, useState } from 'react';
 
 import { AuthContext } from '../context/AuthContext';
 // import { loginService } from '../services/users.service';
-import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
 import { Navigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { LoginAuthProps } from '../../types/types';
-import { capitalizeFirstLetter, toastNotification } from '../config/helpers';
+import { capitalizeFirstLetter } from '../config/helpers';
+import { loginFailure, loginStart, loginSuccess } from '../redux/userSlice';
 import { loginService } from '../services/users.service';
 import { useColorTheme } from './useColorTheme';
-import { ToastContainer, toast } from 'react-toastify';
-import { useDispatch } from 'react-redux';
-import { loginFailure, loginStart, loginSuccess } from '../redux/userSlice';
 
 export const useAuth = () => {
   const { isAuth, setIsAuth, activateAuth, removeAuth } =
@@ -40,6 +39,64 @@ export const useAuth = () => {
   }
 
   const login = useCallback(({ email, password }: LoginAuthProps) => {
+    setState({ loading: true, error: false });
+    dispatch(loginStart());
+
+    loginService({ email, password }).then(async (response: any) => {
+      const data = await response.json();
+      if (response.status === 200) {
+        // activateAuth(data.accessToken);
+        // setIsAuth(data.accessToken);
+        dispatch(loginSuccess(data));
+
+        // window.localStorage.setItem('token', data.accessToken);
+
+        // const { password, accessToken, ...others } = data;
+        // window.localStorage.setItem('user', JSON.stringify(others));
+
+        setState({ loading: false, error: false });
+
+        // toastNotification({
+        //   icon: 'success',
+        //   title:
+        //     loggedUser().gender === 'Masculino'
+        //       ? 'Bienvenido ' +
+        //         capitalizeFirstLetter(
+        //           loggedUser().firstName + ' ' + loggedUser().firstSurname
+        //         )
+        //       : 'Bienvenida ' +
+        //         capitalizeFirstLetter(
+        //           loggedUser().firstName + ' ' + loggedUser().firstSurname
+        //         ),
+        //   timer: 3000,
+        //   stateFromUI,
+        // });
+        toast.success(
+          loggedUser().gender === 'Masculino'
+            ? 'Bienvenido ' +
+                capitalizeFirstLetter(
+                  loggedUser().firstName + ' ' + loggedUser().firstSurname
+                )
+            : 'Bienvenida ' +
+                capitalizeFirstLetter(
+                  loggedUser().firstName + ' ' + loggedUser().firstSurname
+                )
+        );
+      } else {
+        // setState({ loading: false, error: true });
+        setState({ loading: false, error: false });
+        dispatch(loginFailure());
+        // toastNotification({
+        //   icon: 'error',
+        //   title: 'Ocurrió un error',
+        //   text: data.message,
+        //   stateFromUI,
+        // });
+        toast.error(data.message);
+      }
+    });
+  }, []);
+  const register = useCallback(({ email, password }: LoginAuthProps) => {
     setState({ loading: true, error: false });
     dispatch(loginStart());
 
@@ -128,5 +185,6 @@ export const useAuth = () => {
     loggedUser: loggedUser(),
     navigateTo,
     CheckAuth,
+    register,
   };
 };
